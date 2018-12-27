@@ -11,8 +11,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/loginapp');
-const db = mongoose.connection;
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/loginapp', {useNewUrlParser: true});
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
@@ -47,7 +46,7 @@ app.use(passport.session());
 // Express Validator
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
-      var namespace = param.split('.')
+      const namespace = param.split('.')
       , root    = namespace.shift()
       , formParam = root;
 
@@ -83,5 +82,5 @@ app.use('/users', users);
 app.set('port', (process.env.PORT || 3000));
 
 app.listen(app.get('port'), function(){
-	console.log('Server started on port '+app.get('port'));
+	console.log('Listening on port '+app.get('port'));
 });
