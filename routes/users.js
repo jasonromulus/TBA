@@ -42,9 +42,17 @@ router.post('/register', function(req, res){
             email: email,
             username: username,
             password: password,
-        })
-    }
+        });
 
+        User.createUser(newUser, function(err, user){
+            if(err) throw err;
+            console.log(user);
+        });
+
+        req.flash('success_msg', 'You are registered. Please login now!');
+
+        res.redirect('/users/login');
+    }
 });
 
 module.exports = router;
