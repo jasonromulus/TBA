@@ -11,13 +11,23 @@ const LocalStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/loginapp', {useNewUrlParser: true});
-
-const routes = require('./routes/index');
-const users = require('./routes/users');
-
 // Init App
 const app = express();
+
+// Passport Config
+require('./config/passport')(passport);
+
+// DB Config
+const db = require('./config/keys').mongoURI;
+
+// Connect to MongoDB
+mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true }
+  )
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -73,14 +83,11 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-
-app.use('/', routes);
-app.use('/users', users);
+// Routes
+app.use('/', require('./routes/index.js'));
+app.use('/users', require('./routes/users.js'));
 
 // Set Port
-app.set('port', (process.env.PORT || 3000));
+const PORT = process.env.PORT || 3000;
 
-app.listen(app.get('port'), function(){
-	console.log('Listening on port '+app.get('port'));
-});
+app.listen(PORT, console.log(`Server started on port ${PORT}`));
