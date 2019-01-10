@@ -81,4 +81,4 @@ app.use('/users', require('./routes/users.js'));
 // Set Port
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+app.listen(PORT, console.log(`Server listening on ${PORT}`));
