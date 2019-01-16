@@ -10,6 +10,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
+const moment = require('helper-moment');
 
 // Init App
 const app = express();
@@ -31,14 +33,14 @@ mongoose
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout:'layout'}));
+app.engine('handlebars', exphbs({defaultLayout:'layout', helpers: {moment: moment}}));
 app.set('view engine', 'handlebars');
 
 // BodyParser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(methodOverride('_method'))
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -76,10 +78,10 @@ app.use(function (req, res, next) {
 
 // Routes
 app.use('/', require('./routes/index.js'));
-app.use('/', require('./routes/users.js'));
-// app.use('/', require('./routes/entries.js'));
+app.use('/users', require('./routes/users.js'));
+app.use('/', require('./routes/entries.js'));
 
 // Set Port
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, console.log(`Server listening on ${PORT}`));
+app.listen(PORT, console.log(`Server listening on http://localhost:${PORT}`));

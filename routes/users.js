@@ -76,12 +76,13 @@ router.post('/register', (req, res) => {
 });
 
 // Login
-router.post('/login', (req, res, next) => {
+router.post('/login', (req, res) => {
+  console.log('[POST] Login')
   passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/users/login',
     failureFlash: true
-  })(req, res, next);
+  })(req, res);
 });
 
 // Logout

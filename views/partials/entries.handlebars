@@ -1,0 +1,12 @@
+    <div class="card-block">
+        {{name}}
+        <h4 class="card-text"> {{this.name}}</h4>
+        <p class="card-text"> {{moment this.date "dddd, MMMM D YYYY"}}</p>
+        <p class="card-text"> {{this.entry}}</p>
+        <p>
+            <form method="POST" action="/entries{{this._id}}?_method=DELETE">
+                <button class="btn btn-link" type="submit"> Delete </button>
+            </form>
+        </p>
+    </div>
+</div>

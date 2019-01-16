@@ -1,4 +1,4 @@
-{{!-- <div class="row">
+<div class="row">
     <div class="col-sm-6 col-sm-offset-3">
         <h1>{{entry.name}}</h1>
         <p><a href="/entries/{{entry._id}}/edit"> Edit </a></p>
@@ -9,9 +9,10 @@
         </p>
 
         <!-- Show Entries -->
-        {{#each entries}}
-            {{> entries}}
+        {{#each entry}}
+        {{!-- <p>hello</p> --}}
+            {{> entry}}
         {{/each}}
         
     </div>
-</div> --}}
+</div>

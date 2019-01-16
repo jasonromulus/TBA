@@ -18,10 +18,15 @@
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "helper-moment": "^0.2.0",
+    "method-override": "^3.0.0",
     "mongodb": "*",
     "mongoose": "*",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*"
+  },
+  "devDependencies": {
+    "handlebars-helper-moment": "^0.2.0"
   }
 }
